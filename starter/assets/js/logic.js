@@ -27,4 +27,4 @@
 //will need a prevent default declaration
 
 // does it matter how many questions?
-  
+var score = 0 
