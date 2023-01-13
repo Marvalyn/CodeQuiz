@@ -11,8 +11,32 @@
 // Create a code quiz that contains the following requirements:
 
 // * A start button that when clicked a timer starts and the first question appears.
+// add timer
+// add event listener for timer function
+// call function 
 //reference colour splosion timers & intervals
- 
+
+var timerEl = document.getElementById('time');
+var start = document.getElementById("start");
+
+start.addEventListener("click", function(){
+    timerCount();
+
+});
+function timerCount() {
+    var secondsLeft = 90;
+    var timerInterval = setInterval(function() {
+        secondsLeft --;
+        timerEl.textContent = secondsLeft;
+
+        if(secondsLeft === 0) {
+            //stop execution of action
+            clearInterval(timerInterval);
+        }
+    }, 900);
+}
+
+
 //   * Questions contain buttons for each answer.
 //   * 
 //   * When answer is clicked, the next question appears
@@ -26,5 +50,46 @@
 //client side storage will need get event and set event
 //will need a prevent default declaration
 
-// does it matter how many questions?
-var score = 0 
+//when i click the start buttin move to the next question 
+// var score = 0;
+
+// for (var i = 0; i < quizQuestions.length; i++) {
+//     alert(quizQuestions[i].question);
+// }
+
+// function showQuestion(q) {
+//     //select DOM element to modify 
+//     var titleQuestion = document.getElementById("question-title");
+
+
+//     //modify it
+
+//     titleQuestion.textContent = q.questions;
+
+//     //select by a query
+//     //create li items
+//     var answerOptions = document.querySelectorAll(".choices");
+//     // console.log(answerOptions);
+
+//     // run for reach option
+//     answerOptions.forEach(function(element,index){
+//         element.textContent = q.answerOptions[index];
+
+//         element.addEventListener("click", function(){
+//             if(q.correctAnswer == index)
+//             score ++;
+//             // move to next question
+//         }
+//             else {
+//                 //reduce time 10 seconds
+//                 score --;
+//             }
+//         })
+//     });
+
+
+// };
+
+// showQuestion();
+//var answerOptions = document.getElementById("choices");
+
