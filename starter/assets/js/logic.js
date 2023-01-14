@@ -1,30 +1,81 @@
-// ## User Story
-
-// ```
+// ASSIGNMENT
 // AS A coding boot camp student
 // I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
 // SO THAT I can gauge my progress compared to my peers
-// ```
 
 // ## Acceptance Criteria
 
 // Create a code quiz that contains the following requirements:
 
-// * A start button that when clicked a timer starts and the first question appears.
-// add timer
-// add event listener for timer function
-// call function 
-//reference colour splosion timers & intervals
-
+//Global variables
 var timerEl = document.getElementById('time');
 var start = document.getElementById("start");
+var secondsLeft = 90;
+var score = 0;
+var questionArea = document.getElementById("questions");
+var clicked = document.getElementById("options");
+var isClicked = " ";
 
+
+
+//Start button event listener
+// * A start button that when clicked a timer starts and the first question appears.
 start.addEventListener("click", function(){
-    timerCount();
+    questionArea.classList.remove("hide");//shows the div containing the questions
 
+    var questionCounter = 0 //To get first question in array
+
+    showQuestion(questionCounter) //To display first question
+
+    timerCount(); //starts the countdown
+    
+   
 });
+
+//Populate questions
+
+function showQuestion(q) {
+
+    isClicked = "false";
+    questions.setAttribute("index", q);
+
+    // //select the DOM element
+
+    var quesTitle = document.getElementById("question-title");
+
+    // //modify it
+
+    quesTitle.textContent = quizQuestions[q].question;
+    var currentQuestion = quizQuestions[q];
+
+    //remove previously appended li items
+
+    var option = document.getElementById("options");
+    while (option.hasChildNodes()) {
+        option.removeChild(option.firstChild);
+    }
+
+    //loop to display questions
+    //refer to append lesson to add answer text
+
+    for (var i = 0; i < quizQuestions.length; i++) {
+        var listItem = document.createElement("li");
+        var answerOptions = currentQuestion.answers[i];
+        document.getElementById("options").appendChild(listItem);
+    }
+}
+// start.addEventListener("click", function(event) {
+//     var element = event.target;
+
+//     if (element.matches(".hide")) {
+//         var state = element.getAttribute()
+//     }
+// })
+
+
+//Timer function
 function timerCount() {
-    var secondsLeft = 90;
+    
     var timerInterval = setInterval(function() {
         secondsLeft --;
         timerEl.textContent = secondsLeft;
@@ -35,6 +86,7 @@ function timerCount() {
         }
     }, 900);
 }
+
 
 
 //   * Questions contain buttons for each answer.
@@ -51,44 +103,22 @@ function timerCount() {
 //will need a prevent default declaration
 
 //when i click the start buttin move to the next question 
-// var score = 0;
 
-// for (var i = 0; i < quizQuestions.length; i++) {
-//     alert(quizQuestions[i].question);
-// }
 
 // function showQuestion(q) {
-//     //select DOM element to modify 
-//     var titleQuestion = document.getElementById("question-title");
 
 
-//     //modify it
 
-//     titleQuestion.textContent = q.questions;
+// //select by query
+// let choices = document.querySelectorAll(".choice")
+// console.log(choices);
 
-//     //select by a query
-//     //create li items
-//     var answerOptions = document.querySelectorAll(".choices");
-//     // console.log(answerOptions);
+// choices.forEach(function(element, index){
+//     element.textContent = q.answers[index];
+// });
+// }
 
-//     // run for reach option
-//     answerOptions.forEach(function(element,index){
-//         element.textContent = q.answerOptions[index];
-
-//         element.addEventListener("click", function(){
-//             if(q.correctAnswer == index)
-//             score ++;
-//             // move to next question
-//         }
-//             else {
-//                 //reduce time 10 seconds
-//                 score --;
-//             }
-//         })
-//     });
-
-
-// };
+// showQuestion(quizQuestions);
 
 // showQuestion();
 //var answerOptions = document.getElementById("choices");
