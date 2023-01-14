@@ -15,6 +15,11 @@ var score = 0;
 var questionArea = document.getElementById("questions");
 var clicked = document.getElementById("options");
 var isClicked = " ";
+var correctAnswerAlert = document.getElementById('feedback');
+var incorrectAnswerAlert = document.getElementById('feedback1');
+var numberOfQuestions = quizQuestions.length;
+var Score = document.getElementById('final-score');
+
 
 
 
@@ -31,6 +36,47 @@ start.addEventListener("click", function(){
     
    
 });
+
+//Answer clicked event listener
+clicked.addEventListener("click", function(event) {
+    var currentIndex = document.getElementById("questions").getAttribute("index");
+    var selectedAns = event.target.innerText //if doesn't work try textContent
+    var correctAns = quizQestions[currentIndex].correctAnswer;
+    isClicked = "true";
+
+    if (selectedAns == correctAns) {
+        currentIndex ++;
+        correctAnswerAlert.classList.remove("hide");
+
+        if (currentIndex < numberOfQuestions) {
+            setTimeout(function() {
+                correctAnswerAlert.classList.add("hide");
+                showQuestion(currentIndex);
+            }, 400);
+        } else { 
+            setTimeout(function() {
+                correctAnswerAlert.classList.add("hide");
+                endQuiz(timerInterval);
+            }, 400);
+        }
+    } else {
+        incorrectAnswerAlert.classList.remove("hide");
+        secondsLeft -= 10;
+        currentIndex ++;
+        if (currentIndex < numberOfQuestions) {
+            setTimeout(function() {
+                incorrectAnswerAlert.classList.add("hide");
+                showQuestion(currentIndex);
+            }, 400);
+        } else {
+            setTimeout(function(){
+                incorrectAnswerAlert.classList.add("hide");
+                endQuiz(timerInterval);
+            }, 400);
+        }
+    }
+});
+
 
 //Populate questions
 
@@ -62,6 +108,7 @@ function showQuestion(q) {
         var listItem = document.createElement("li");
         var answerOptions = currentQuestion.answers[i];
         document.getElementById("options").appendChild(listItem);
+        // listItem.setAttribute("style") items are not appearing as buttons, need to change styling?
     }
 }
 // start.addEventListener("click", function(event) {
