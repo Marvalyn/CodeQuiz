@@ -41,7 +41,7 @@ start.addEventListener("click", function(){
 clicked.addEventListener("click", function(event) {
     var currentIndex = document.getElementById("questions").getAttribute("index");
     var selectedAns = event.target.innerText //if doesn't work try textContent
-    var correctAns = quizQestions[currentIndex].correctAnswer;
+    var correctAns = quizQuestions[currentIndex].correctAnswer;
     isClicked = "true";
 
     if (selectedAns == correctAns) {
@@ -104,10 +104,11 @@ function showQuestion(q) {
     //loop to display questions
     //refer to append lesson to add answer text
 
-    for (var i = 0; i < quizQuestions.length; i++) {
-        var listItem = document.createElement("li");
+    for (var i = 0; i < quizQuestions.length-1; i++) {
+        var listItem = document.createElement("button");
         var answerOptions = currentQuestion.answers[i];
         document.getElementById("options").appendChild(listItem);
+        listItem.innerHTML = currentQuestion.answers[i];
         // listItem.setAttribute("style") items are not appearing as buttons, need to change styling?
     }
 }
