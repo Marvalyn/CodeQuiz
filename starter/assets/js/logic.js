@@ -170,3 +170,41 @@ function timerCount() {
 // showQuestion();
 //var answerOptions = document.getElementById("choices");
 
+
+// function finalScore()
+
+var initialsInput = document.getElementById("initials");
+var submitButton = document.getElementById("submit");
+
+
+function renderLastUser() {
+    // Fill in code here to retrieve the last email and password.
+    // If they are null, return early from this function
+    if ( initialsInput == null) {
+      return;
+      displayMessage("error, Initials cannot be blank");
+    } else {
+      initialsInput.textContent = localStorage.getItem("UserInitials");
+    }
+    // Else set the text of the userEmailSpan and userPasswordSpan 
+    // to the corresponding values form local storage
+    
+  }
+  
+  submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+  
+    var finalScore= document.getElementById("final-score").value;
+  
+    if (finalScore === "") {
+      displayMessage("error", "Initials cannot be blank");
+    } else {
+      displayMessage("success", "Registered successfully");
+  
+    // Save email and password to localStorage and render the last registered.
+  localStorage.setItem("UserInitials", finalScore);
+  
+  renderLastUser();
+  }
+  });
+    
