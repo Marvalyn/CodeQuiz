@@ -84,6 +84,9 @@ function endQuiz() {
     end.classList.remove("hide");
     clearInterval(timerInterval);
     //stop timer at end of quiz
+    score = secondsLeft;
+    var text = "Your final score is " + score;
+    document.getElementById('final-score').innerHTML = text;
 }
 
 //Populate questions
@@ -177,7 +180,8 @@ function renderLastUser() {
 submitButton.addEventListener("click", function (event) {
     event.preventDefault();
 
-    var playerInitials= document.getElementById("initials").value;
+    score = secondsLeft;
+    var playerInitials = document.getElementById("initials").value;
     var userHighscores = JSON.parse(localStorage.getItem("UserInitials")) || [];
     var leaderboard = {
         playerInitial: playerInitials,
@@ -194,5 +198,7 @@ submitButton.addEventListener("click", function (event) {
 
         renderLastUser();
         location.href = "highscores.html";
+
     }
 });
+
