@@ -7,7 +7,7 @@ var quizQuestions = [
             "Home Tool Markup Language",
             "Hyper Text Making Language",
         ],
-        correctAnswer: 0
+        correctAnswer: "Hyper Text Markup Language"
     },
     {
         question: "Inside which HTML element do we put the JavaScript?",
@@ -17,7 +17,7 @@ var quizQuestions = [
             "<scripting>",
             "<javascript>",
         ],
-        correctAnswer: 1
+        correctAnswer: "<script>"
     },
     {
         question: "What does CSS stand for?",
@@ -27,7 +27,7 @@ var quizQuestions = [
             "Colorful Style Sheets",
             "Cascading Style Sheets",
         ],
-        correctAnswer: 3
+        correctAnswer: "Cascading Style Sheets"
     },
     {
         question: "How can you make a numbered list?",
@@ -37,7 +37,7 @@ var quizQuestions = [
             "nl",
             "pl",
         ],
-        correctAnswer: 1
+        correctAnswer: "ol"
     },
     {
         question: "How do we call a function in JavaScript?",
@@ -47,7 +47,7 @@ var quizQuestions = [
             "call to function myFunction();",
             "myFunction(); call;",
         ],
-        correctAnswer: 0
+        correctAnswer: "myFunction();"
     },
 ]
 

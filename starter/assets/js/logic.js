@@ -19,42 +19,44 @@ var correctAnswerAlert = document.getElementById('feedback');
 var incorrectAnswerAlert = document.getElementById('feedback1');
 var numberOfQuestions = quizQuestions.length;
 var Score = document.getElementById('final-score');
-
+var end = document.getElementById("end-screen");
+var start = document.getElementById("start-screen");
+var timerInterval;
 
 
 
 //Start button event listener
 // * A start button that when clicked a timer starts and the first question appears.
-start.addEventListener("click", function(){
+start.addEventListener("click", function () {
     questionArea.classList.remove("hide");//shows the div containing the questions
 
     var questionCounter = 0 //To get first question in array
-
+    start.classList.add("hide");
     showQuestion(questionCounter) //To display first question
 
     timerCount(); //starts the countdown
-    
-   
+
+
 });
 
 //Answer clicked event listener
-clicked.addEventListener("click", function(event) {
+clicked.addEventListener("click", function (event) {
     var currentIndex = document.getElementById("questions").getAttribute("index");
     var selectedAns = event.target.innerText //if doesn't work try textContent
     var correctAns = quizQuestions[currentIndex].correctAnswer;
     isClicked = "true";
 
     if (selectedAns == correctAns) {
-        currentIndex ++;
+        currentIndex++;
         correctAnswerAlert.classList.remove("hide");
 
         if (currentIndex < numberOfQuestions) {
-            setTimeout(function() {
+            setTimeout(function () {
                 correctAnswerAlert.classList.add("hide");
                 showQuestion(currentIndex);
             }, 400);
-        } else { 
-            setTimeout(function() {
+        } else {
+            setTimeout(function () {
                 correctAnswerAlert.classList.add("hide");
                 endQuiz(timerInterval);
             }, 400);
@@ -62,21 +64,27 @@ clicked.addEventListener("click", function(event) {
     } else {
         incorrectAnswerAlert.classList.remove("hide");
         secondsLeft -= 10;
-        currentIndex ++;
+        currentIndex++;
         if (currentIndex < numberOfQuestions) {
-            setTimeout(function() {
+            setTimeout(function () {
                 incorrectAnswerAlert.classList.add("hide");
                 showQuestion(currentIndex);
             }, 400);
         } else {
-            setTimeout(function(){
+            setTimeout(function () {
                 incorrectAnswerAlert.classList.add("hide");
-                endQuiz(timerInterval);
+                endQuiz();
             }, 400);
         }
     }
 });
 
+function endQuiz() {
+    questionArea.classList.add("hide");
+    end.classList.remove("hide");
+    clearInterval(timerInterval);
+    //stop timer at end of quiz
+}
 
 //Populate questions
 
@@ -104,31 +112,25 @@ function showQuestion(q) {
     //loop to display questions
     //refer to append lesson to add answer text
 
-    for (var i = 0; i < quizQuestions.length-1; i++) {
+    for (var i = 0; i < quizQuestions.length - 1; i++) {
         var listItem = document.createElement("button");
+        listItem.setAttribute("value", i);
         var answerOptions = currentQuestion.answers[i];
         document.getElementById("options").appendChild(listItem);
-        listItem.innerHTML = currentQuestion.answers[i];
-        // listItem.setAttribute("style") items are not appearing as buttons, need to change styling?
+        listItem.textContent = answerOptions;
+        console.log(listItem);
     }
 }
-// start.addEventListener("click", function(event) {
-//     var element = event.target;
-
-//     if (element.matches(".hide")) {
-//         var state = element.getAttribute()
-//     }
-// })
 
 
 //Timer function
 function timerCount() {
-    
-    var timerInterval = setInterval(function() {
-        secondsLeft --;
+
+    timerInterval = setInterval(function () {
+        secondsLeft--;
         timerEl.textContent = secondsLeft;
 
-        if(secondsLeft === 0) {
+        if (secondsLeft === 0) {
             //stop execution of action
             clearInterval(timerInterval);
         }
@@ -153,27 +155,6 @@ function timerCount() {
 //when i click the start buttin move to the next question 
 
 
-// function showQuestion(q) {
-
-
-
-// //select by query
-// let choices = document.querySelectorAll(".choice")
-// console.log(choices);
-
-// choices.forEach(function(element, index){
-//     element.textContent = q.answers[index];
-// });
-// }
-
-// showQuestion(quizQuestions);
-
-// showQuestion();
-//var answerOptions = document.getElementById("choices");
-
-
-// function finalScore()
-
 var initialsInput = document.getElementById("initials");
 var submitButton = document.getElementById("submit");
 
@@ -181,31 +162,36 @@ var submitButton = document.getElementById("submit");
 function renderLastUser() {
     // Fill in code here to retrieve the last email and password.
     // If they are null, return early from this function
-    if ( initialsInput == null) {
-      return;
-      displayMessage("error, Initials cannot be blank");
+    if (initialsInput == null) {
+        return;
+        alert("error, Initials cannot be blank");
     } else {
-      initialsInput.textContent = localStorage.getItem("UserInitials");
+        initialsInput.textContent = localStorage.getItem("UserInitials");
     }
     // Else set the text of the userEmailSpan and userPasswordSpan 
     // to the corresponding values form local storage
-    
-  }
-  
-  submitButton.addEventListener("click", function(event) {
+
+}
+
+submitButton.addEventListener("click", function (event) {
     event.preventDefault();
-  
-    var finalScore= document.getElementById("final-score").value;
-  
-    if (finalScore === "") {
-      displayMessage("error", "Initials cannot be blank");
+
+    var playerInitials= document.getElementById("initials").value;
+    var userHighscores = JSON.parse(localStorage.getItem("UserInitials")) || [];
+    var leaderboard = {
+        playerInitial: playerInitials,
+        playerScore: secondsLeft,
+    }
+
+    if (playerInitials === "") {
+        alert("error", "Initials cannot be blank");
     } else {
-      displayMessage("success", "Registered successfully");
-  
-    // Save email and password to localStorage and render the last registered.
-  localStorage.setItem("UserInitials", finalScore);
-  
-  renderLastUser();
-  }
-  });
-    
+        alert("success", "Registered successfully");
+        userHighscores.push(leaderboard);
+        // Save email and password to localStorage and render the last registered.
+        localStorage.setItem("UserInitials", JSON.stringify(userHighscores));
+
+        renderLastUser();
+        location.href = "highscores.html";
+    }
+});
