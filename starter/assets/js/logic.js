@@ -133,6 +133,7 @@ function timerCount() {
         if (secondsLeft === 0) {
             //stop execution of action
             clearInterval(timerInterval);
+            endQuiz();
         }
     }, 900);
 }
