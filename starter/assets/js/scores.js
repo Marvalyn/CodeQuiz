@@ -12,9 +12,9 @@ UserID = document.getElementById("highscores");
 for (var i = 0; i < showScore.length; i++) {
     var li = document.createElement("li");
     UserID.appendChild(li);
-    li.textContent = showScore[i];
+    li.textContent = showScore[i].playerInitial + " - " + showScore[i].playerScore;
+    // li.textContent = =secondsLeft;
 };
-
 
 //set text content to values from object user initials and score
 //user

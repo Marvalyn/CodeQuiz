@@ -200,5 +200,13 @@ submitButton.addEventListener("click", function (event) {
         location.href = "highscores.html";
 
     }
+
+    // storedInitials.innerText = leaderboard[0].playerInitials;
+    // storedScore.innerText = leaderboard[0].secondsLeft;
+
+    // var dataStored = JSON.parse(localStorage.getItem("score"));
+    // console.log(dataStored[0].playerInitials);
+    // console.log(dataStored[0].finalScore);
+
 });
 
